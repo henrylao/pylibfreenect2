@@ -12,14 +12,22 @@ import os
 from os.path import join, exists
 from subprocess import Popen, PIPE
 import sys
+from pathlib import Path
 
-libfreenect2_install_prefix = os.environ.get(
-    "LIBFREENECT2_INSTALL_PREFIX", "/usr/local/")
+print("LIBRFREENECT2_INSTALL_PREFIX=",os.environ.get("LIBFREENECT2_INSTALL_PREFIX"))
 
-libfreenect2_include_top = join(libfreenect2_install_prefix, "include")
-libfreenect2_library_path = join(libfreenect2_install_prefix, "lib")
-libfreenect2_configh_path = join(
-    libfreenect2_include_top, "libfreenect2", "config.h")
+libfreenect2_install_prefix = Path(os.environ.get(
+    "LIBFREENECT2_INSTALL_PREFIX")
+    )
+
+libfreenect2_include_top = libfreenect2_install_prefix / "include"
+libfreenect2_library_path = libfreenect2_install_prefix /"lib"
+libfreenect2_configh_path =    libfreenect2_include_top /"libfreenect2" /"config.h"
+
+libfreenect2_include_top = str(libfreenect2_include_top)
+libfreenect2_library_path = str(libfreenect2_library_path)
+libfreenect2_configh_path = str(libfreenect2_configh_path)
+
 
 if not exists(libfreenect2_configh_path):
     raise OSError("{}: is not found".format(libfreenect2_configh_path))
